@@ -1,5 +1,7 @@
 package ru.javawebinar.topjava.web;
 
+import ru.javawebinar.topjava.util.MealsUtil;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,7 @@ public class MealServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            request.getRequestDispatcher("/meals.jsp").forward(request,response);
+        request.setAttribute("mealList", MealsUtil.getWithExceeded(MealsUtil.MEALS, MealsUtil.DEFAULT_CALORIES));
+        request.getRequestDispatcher("/meals.jsp").forward(request,response);
     }
 }
