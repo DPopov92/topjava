@@ -20,7 +20,7 @@
 <h3><a href="index.html">Home</a></h3>
 <table><thread>
     <tr>
-
+        <th width="80">ID</th>
         <th >Time</th>
         <th width="120">Description</th>
         <th width="100">Calories</th>
@@ -29,6 +29,7 @@
     <c:forEach items="${mealList}" var="meal">
         <jsp:useBean id="meal" scope="page" type="ru.javawebinar.topjava.model.MealWithExceed"/>
         <tr class="${meal.exceed ? 'normal' : 'exceeded'}">
+            <th>${meal.id}</th>
             <th>${meal.dateTime.toLocalTime()} ${meal.dateTime.toLocalDate()}</th>
             <th>${meal.description}</th>
             <th>${meal.calories}</th>
