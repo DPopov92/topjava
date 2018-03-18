@@ -18,6 +18,7 @@
 <body>
 <h2>MEALS</h2>
 <h3><a href="index.html">Home</a></h3>
+<a href="meals?action=create">Add Meal</a>
 <table><thread>
     <tr>
         <th width="80">ID</th>
@@ -33,6 +34,8 @@
             <th>${meal.dateTime.toLocalTime()} ${meal.dateTime.toLocalDate()}</th>
             <th>${meal.description}</th>
             <th>${meal.calories}</th>
+            <td><a href="meals?action=update&id=${meal.id}">Update</a> </td>
+            <td><a href="meals?action=delete&id=${meal.id}">Delete</a> </td>
         </tr>
     </c:forEach>
 </table>

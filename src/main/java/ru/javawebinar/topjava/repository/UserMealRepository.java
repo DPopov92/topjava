@@ -10,9 +10,9 @@ import java.util.Collection;
 public interface UserMealRepository {
     void delete(int id);
 
-    void get(int id);
+    Meal get(int id);
 
-    void save(Meal meal);
+    Meal save(Meal meal);
 
     Collection<Meal> getAll();
 }
