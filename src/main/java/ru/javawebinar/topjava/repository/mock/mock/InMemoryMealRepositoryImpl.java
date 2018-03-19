@@ -18,7 +18,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     private AtomicInteger counter = new AtomicInteger(0);
 
     {
-        MealsUtil.MEALS.forEach(m -> save(m, AuthorizedUser.id()));
+        MealsUtil.MEALS.forEach(m -> save(m, m.getUserId()));
     }
 
     @Override
@@ -42,7 +42,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
             repository.remove(id);
             return true;
         } else
-            throw new NotFoundException("Wrong user");
+            return false;
     }
 
     @Override
@@ -52,7 +52,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
 
         if (repository.get(id).getUserId() == userId)
             return repository.get(id);
-        else throw new NotFoundException("Its not your meal");
+        else return null;
     }
 
     @Override
