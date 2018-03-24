@@ -14,11 +14,19 @@
 
     <!-- Not necessary, already included with component-scan -->
     <!--<context:annotation-config/>-->
+    <bean class="ru.javawebinar.topjava.repository.jdbc.JdbcMealRepositoryImpl" id="jdbcMealRepository">
+        <constructor-arg name="ds" ref="dataSource"/>
+        <constructor-arg name="jdbcTemplate" ref="jdbcTemplate"/>
+        <constructor-arg name="namedParameterJdbcTemplate" ref="namedJdbcTemplate"/>
+        <constructor-arg name="insertMeal" ref="insert"/>
+    </bean>
 
     <context:component-scan base-package="ru.javawebinar.**.repository.jdbc"/>
 
     <context:component-scan base-package="ru.javawebinar.**.service"/>
 
     <context:component-scan base-package="ru.javawebinar.**.web"/>
+
+    <!--<context:component-scan base-package="ru.**"/>-->
 
 </beans>

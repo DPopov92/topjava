@@ -1,4 +1,4 @@
-package ru.javawebinar.topjava.repository.mock;
+package ru.javawebinar.topjava.repository.mock.mock;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +22,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
-import static ru.javawebinar.topjava.UserTestData.USER_ID;
+//import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
+//import static ru.javawebinar.topjava.UserTestData.USER_ID;
 
-@Repository
+
 public class InMemoryMealRepositoryImpl implements MealRepository {
     private static final Logger log = LoggerFactory.getLogger(InMemoryMealRepositoryImpl.class);
 
@@ -33,11 +33,16 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     private Map<Integer, Map<Integer, Meal>> repository = new ConcurrentHashMap<>();
     private AtomicInteger counter = new AtomicInteger(0);
 
-    {
-        MealsUtil.MEALS.forEach(meal -> save(meal, USER_ID));
+    @Override
+    public boolean deleteAll(int userid) {
+        return false;
+    }
 
-        save(new Meal(LocalDateTime.of(2015, Month.JUNE, 1, 14, 0), "Админ ланч", 510), ADMIN_ID);
-        save(new Meal(LocalDateTime.of(2015, Month.JUNE, 1, 21, 0), "Админ ужин", 1500), ADMIN_ID);
+    {
+        MealsUtil.MEALS.forEach(meal -> save(meal, 1));
+
+        save(new Meal(LocalDateTime.of(2015, Month.JUNE, 1, 14, 0), "Админ ланч", 510), 10000);
+        save(new Meal(LocalDateTime.of(2015, Month.JUNE, 1, 21, 0), "Админ ужин", 1500), 10001);
     }
 
 
