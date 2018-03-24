@@ -31,6 +31,6 @@ CREATE TABLE meals
   id SERIAL  PRIMARY KEY ,
   userId INTEGER NOT NULL,
   description VARCHAR(255) NOT NULL ,
-  dateTime TIMESTAMP DEFAULT now(),
+  dateTime TIMESTAMP ,
   calories INTEGER NOT NULL
 );
