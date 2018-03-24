@@ -1,0 +1,76 @@
+package ru.javawebinar.topjava.service;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.jdbc.SqlConfig;
+import org.springframework.test.context.junit4.SpringRunner;
+import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.util.exception.NotFoundException;
+
+import java.time.LocalDateTime;
+
+import static org.junit.Assert.*;
+import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
+import static ru.javawebinar.topjava.UserTestData.USER_ID;
+import static ru.javawebinar.topjava.model.AbstractBaseEntity.START_SEQ;
+
+@ContextConfiguration({
+        "classpath:spring/spring-app.xml",
+        "classpath:spring/spring-db.xml"
+})
+@RunWith(SpringRunner.class)
+@Sql(scripts = {"classpath:db/initDB.sql","classpath:db/populateDB.sql"}, config = @SqlConfig(encoding = "UTF-8"))
+public class MealServiceImplTest {
+private static final int userId_user = USER_ID;
+private static final int userId_admin = ADMIN_ID;
+
+private static final Meal userMeal = new Meal(LocalDateTime.now(),"testUserMeal", 750);
+private static final Meal adminMeal = new Meal(LocalDateTime.now(),"testAdminMeal", 350);
+
+    @Autowired
+    private MealService mealService;
+    @Test
+    public void get() throws Exception {
+        Meal meal  = mealService.get(2,userId_user);
+    }
+    @Test(expected = NotFoundException.class)
+    public void wrongGet() throws Exception {
+        Meal meal  = mealService.get(4,userId_user);
+    }
+
+    @Test
+    public void delete() throws Exception {
+        mealService.delete(1, userId_user);
+    }
+
+    @Test
+    public void getAll() throws Exception {
+        mealService.getAll(userId_user);
+    }
+
+    @Test
+    public void deleteAll(){
+        mealService.deleteAll(userId_admin);
+    }
+    @Test
+    public void update() throws Exception {
+        Meal meal = new Meal(mealService.get(1,userId_user));
+        mealService.create(meal,userId_user);
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void wrongUpdate() throws Exception {
+        Meal meal = new Meal(mealService.get(1,userId_user));
+        mealService.create(meal,userId_admin);
+    }
+
+    @Test
+    public void create() throws Exception {
+        Meal meal = new Meal(LocalDateTime.now(), "test", 400);
+        mealService.create(meal, userId_user);
+    }
+
+}
