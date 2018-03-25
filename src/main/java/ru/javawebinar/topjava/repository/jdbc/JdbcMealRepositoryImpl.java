@@ -14,6 +14,7 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 
 import javax.sql.DataSource;
+import java.security.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -44,8 +45,8 @@ public class JdbcMealRepositoryImpl implements MealRepository {
         if (meal.isNew()) {
             Number newKey = insertMeal.executeAndReturnKey(map);
             meal.setId(newKey.intValue());
-        } else if (namedParameterJdbcTemplate.update("UPDATE meals SET description=: description, datetime=: dateTime," +
-                "calories=:calories WHERE id =: id AND userid=:userId", map) == 0)
+        } else if (namedParameterJdbcTemplate.update("UPDATE meals SET description =: description, " +
+                "datetime =: datetime, calories =:calories WHERE id =: id AND userid =: userId", map) == 0)
             return null;
 
         return meal;
@@ -70,12 +71,11 @@ public class JdbcMealRepositoryImpl implements MealRepository {
     @Override
     public List<Meal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId) {
         return jdbcTemplate.query("SELECT * FROM meals WHERE userid=? AND datetime<=? AND meals.datetime>=?" +
-                " ORDER BY id", ROW_MAPPER, userId, startDate,endDate);
+                " ORDER BY datetime", ROW_MAPPER, userId, java.sql.Timestamp.valueOf(startDate),java.sql.Timestamp.valueOf(endDate));
     }
 
     @Override
     public boolean deleteAll(int userId) {
-
         return jdbcTemplate.update("DELETE FROM meals WHERE userId=?", userId) != 0;
     }
 }

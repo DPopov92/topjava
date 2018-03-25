@@ -63,6 +63,10 @@ public class MealServlet extends HttpServlet {
             request.setAttribute("meals", mealController.getBetween(startDate, startTime, endDate, endTime));
             request.getRequestDispatcher("/meals.jsp").forward(request, response);
         }
+        else if( "deleteAll".equals(action)){
+            mealController.deleteAll();
+            response.sendRedirect("meals");
+        }
     }
 
     @Override

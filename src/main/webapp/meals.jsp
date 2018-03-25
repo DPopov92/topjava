@@ -60,6 +60,11 @@
             </tr>
         </c:forEach>
     </table>
+    <hr/>
+    <form method="post" action="meals?action=deleteAll">
+        <button type="submit">Clear Meals</button>
+    </form>
+
 </section>
 </body>
 </html>

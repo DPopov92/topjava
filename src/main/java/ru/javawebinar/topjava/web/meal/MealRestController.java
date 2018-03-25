@@ -41,6 +41,12 @@ public class MealRestController {
         service.delete(id, userId);
     }
 
+    public void deleteAll(){
+        int userId = AuthorizedUser.id();
+        log.info("delete all meals for user {}", userId);
+        service.deleteAll(userId);
+    }
+
     public List<MealWithExceed> getAll() {
         int userId = AuthorizedUser.id();
         log.info("getAll for user {}", userId);
