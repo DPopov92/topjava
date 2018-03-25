@@ -32,6 +32,5 @@ CREATE TABLE meals
   userId INTEGER NOT NULL,
   description VARCHAR(255) NOT NULL ,
   dateTime TIMESTAMP ,
-  calories INTEGER NOT NULL,
-  FOREIGN KEY (userId) REFERENCES users (id)
+  calories INTEGER NOT NULL
 );

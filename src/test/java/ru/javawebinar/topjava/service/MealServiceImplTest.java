@@ -75,7 +75,7 @@ public class MealServiceImplTest {
     }
     @Test
     public void getBetweenDateTimes() {
-         mealService.getBetweenDateTimes(LocalDateTime.parse("2018-03-20T06:00:00"),
-                LocalDateTime.parse("2018-03-20T11:00:00"), userId_user);
+         mealService.getBetweenDateTimes(LocalDateTime.of(2018,3,20,6,0),
+                 LocalDateTime.of(2018,3,20,11,0), userId_user);
     }
 }
