@@ -77,6 +77,7 @@ public class MealServiceTest {
     @Test
     public void getAll() throws Exception {
         assertMatch(service.getAll(USER_ID), MEALS);
+
     }
 
     @Test
