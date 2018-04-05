@@ -27,7 +27,7 @@ public class JpaUserRepositoryImpl implements UserRepository {
     private EntityManager em;
 
     @Override
-    @Transactional
+    @javax.transaction.Transactional
     public User save(User user) {
         if (user.isNew()) {
             em.persist(user);
